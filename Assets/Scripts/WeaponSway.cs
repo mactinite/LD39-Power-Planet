@@ -23,7 +23,7 @@ public class WeaponSway : MonoBehaviour {
         weaponDelta.x = mouseDelta.x * Time.deltaTime * swayAmount;
         weaponDelta.y = mouseDelta.y * Time.deltaTime * swayAmount;
         weaponDelta.z = 0;
-        newPos = startPos + weaponDelta;
+        newPos = startPos - weaponDelta;
 
         transform.localPosition = Vector3.Lerp(transform.localPosition, newPos, Time.deltaTime * swaySpeed);
        

@@ -110,6 +110,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitFX: {fileID: 4123326476583154, guid: 88171712fbeaeb24d88a3b762d0749dc, type: 2}
+  pulseAmount: 2
 --- !u!135 &135498002043316248
 SphereCollider:
   m_ObjectHideFlags: 1
