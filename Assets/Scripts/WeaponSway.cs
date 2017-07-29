@@ -13,7 +13,7 @@ public class WeaponSway : MonoBehaviour {
     // Use this for initialization
     void Start () {
         mouseDelta = Vector2.zero;
-        startPos = transform.localPosition;
+        startPos = Vector3.zero;
 	}
 	
 	// Update is called once per frame

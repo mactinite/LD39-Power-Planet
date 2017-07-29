@@ -61,12 +61,10 @@ public class Blaster : MonoBehaviour {
             if (Physics.Raycast(ray, out hit, 1000))
             {
                 projectile.GetComponent<Rigidbody>().AddForce((hit.point - muzzlePosition.position).normalized * projectileSpeed);
-                Debug.Log("Hit");
             }
             else
             {
                 projectile.GetComponent<Rigidbody>().AddForce(Camera.main.transform.forward * projectileSpeed);
-                Debug.Log("No Hit");
             }
 
 
