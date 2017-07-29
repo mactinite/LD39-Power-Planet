@@ -1,15 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using DigitalRuby.LightningBolt;
 public class Grapple : MonoBehaviour {
 
     private Transform player;
     public LayerMask canGrapple;
     public float grappleSpeed = 20;
+    public LightningBoltScript lightning;
     public LineRenderer lineRenderer;
     bool isFlying = false;
     Vector3 grapplePoint;
+    HookShotTarget currentTarget;
 
 	// Use this for initialization
 	void Start () {
@@ -22,14 +24,17 @@ public class Grapple : MonoBehaviour {
         {
             Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
             RaycastHit hit;
-            if (Physics.Raycast(ray, out hit, 1000))
+            if (Physics.Raycast(ray, out hit, 50))
             {
                 if (hit.transform.gameObject.CompareTag("Hookshot"))
                 {
+                    currentTarget = hit.transform.GetComponent<HookShotTarget>();
+                    currentTarget.Active(true);
                     isFlying = true;
                     grapplePoint = hit.point;
+                    lightning.enabled = true;
                     lineRenderer.enabled = true;
-                    lineRenderer.SetPosition(1, grapplePoint);
+                    lightning.EndPosition = grapplePoint;
                     player.GetComponent<FirstPersonDrifter>().canMove = false;
                 }
             }
@@ -42,9 +47,7 @@ public class Grapple : MonoBehaviour {
 
         if (Input.GetButtonDown("Jump") && isFlying)
         {
-            isFlying = false;
-            lineRenderer.enabled = false;
-            player.GetComponent<FirstPersonDrifter>().canMove = true;
+            CancelHook();
         }
 
         if (Input.GetButtonUp("Fire1"))
@@ -54,25 +57,30 @@ public class Grapple : MonoBehaviour {
 
     }
 
+    void CancelHook()
+    {
+        isFlying = false;
+        lightning.enabled = false;
+        lineRenderer.enabled = false;
+        currentTarget.Active(false);
+        player.GetComponent<FirstPersonDrifter>().canMove = true;
+    }
+
 
     void OnDisable()
     {
-        isFlying = false;
-        lineRenderer.enabled = false;
-        player.GetComponent<FirstPersonDrifter>().canMove = true;
+        CancelHook();
     }
 
 
     public void Flying()
     {
         player.transform.position = Vector3.Lerp(player.transform.position, grapplePoint, grappleSpeed * Time.deltaTime / Vector3.Distance(player.transform.position, grapplePoint));
-        lineRenderer.SetPosition(0, transform.position);
+        lightning.StartPosition =  transform.position;
 
         if (Vector3.Distance(player.transform.position, grapplePoint) < 0.5f)
         {
-            isFlying = false;
-            lineRenderer.enabled = false;
-            player.GetComponent<FirstPersonDrifter>().canMove = true;
+            CancelHook();
 
         }
     }

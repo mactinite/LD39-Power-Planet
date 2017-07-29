@@ -252,11 +252,13 @@ public class PauseMenu : MonoBehaviour
 		if( paused )
 		{
 			print("Game Paused");
+            Cursor.visible = true;
 		}
 		else
 		{
 			print("Game Resumed");
-		}
+            Cursor.visible = false;
+        }
 	}
 	
 	void DrawPauseMenuBG()
