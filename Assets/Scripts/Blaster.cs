@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DigitalRuby.LightningBolt;
 
 public class Blaster : MonoBehaviour {
 
@@ -18,11 +19,20 @@ public class Blaster : MonoBehaviour {
     private Spin muzzleSpin;
     Transform projectile;
     bool chargingShot = false;
+
+    public PlayerStats stats;
+
+    private Vector3 target;
+    private LightningBoltScript lightning;
+    private LineRenderer lineRenderer;
+
     // Use this for initialization
     void Start () {
         startPos = transform.localPosition;
         kickOffset = Vector3.zero;
         muzzleSpin = muzzlePosition.gameObject.GetComponent<Spin>();
+        lineRenderer = GetComponent<LineRenderer>();
+        lightning = GetComponent<LightningBoltScript>();
     }
 	
 	// Update is called once per frame
@@ -39,15 +49,58 @@ public class Blaster : MonoBehaviour {
             {
                 projectile.position = muzzlePosition.position;
             }
-            else
+            else if(stats.ModifyEnergy(-1))
             {
                 projectile = Instantiate(projectilePrefab, muzzlePosition.position, Quaternion.identity);
                 projectile.GetComponent<Rigidbody>().isKinematic = true;
+                chargingShot = true;
             }
-            chargingShot = true;
+            else
+            {
+
+            }
+            
         }
 
-        if (Input.GetButtonUp("Fire1"))
+        if (Input.GetButton("Fire2"))
+        {
+
+            if (muzzleSpin != null)
+            {
+                muzzleSpin.SpinMe(Vector3.forward * -muzzleRotation);
+            }
+
+            Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit, 50))
+            {
+                //suck up some energy
+                if (hit.transform.gameObject.CompareTag("EnergyWell") && stats.ModifyEnergy(Time.deltaTime * 10))
+                {
+                    target = hit.transform.position;
+                    lightning.enabled = true;
+                    lineRenderer.enabled = true;
+                    lightning.StartPosition = muzzlePosition.position;
+                    lightning.EndPosition = target;
+                }
+                else
+                {
+                    lightning.enabled = false;
+                    lineRenderer.enabled = false;
+                }
+            }
+            else
+            {
+                lightning.enabled = false;
+                lineRenderer.enabled = false;
+            }
+        }
+        else
+        {
+            lightning.enabled = false;
+            lineRenderer.enabled = false;
+        }
+        if (Input.GetButtonUp("Fire1") && chargingShot)
         {
             kickOffset.z = kickAmount;
             projectile.GetComponent<Rigidbody>().isKinematic = false;

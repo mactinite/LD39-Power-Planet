@@ -5,17 +5,18 @@ using UnityEngine;
 public class Sizer : MonoBehaviour
 {
     public float capacity = 100;
-    public float charge = 50;
+    public float charge = 100;
     public LineRenderer lineRenderer;
     private ScrollingUVs scrollUVs;
     public Transform muzzlePosition;
     Vector3 lineTarget;
     public Sizeable target;
-
+    public PlayerStats stats;
 
     private void Start()
     {
         scrollUVs = GetComponent<ScrollingUVs>();
+        charge = stats.Mass;
     }
 
     // Update is called once per frame
@@ -36,13 +37,18 @@ public class Sizer : MonoBehaviour
                 {
                     target = hit.transform.gameObject.GetComponent<Sizeable>();
                     lineTarget = hit.point;
-                    lineRenderer.enabled = true;
+                    
                     scrollUVs.uvAnimationRate.x = -10;
                     lineRenderer.SetPosition(0, muzzlePosition.position);
                     lineRenderer.SetPosition(1, lineTarget);
-                    if (target.grow())
+                    if (target.grow() && stats.ModifyMass(-1))
                     {
-                        charge-= Time.deltaTime;
+                        charge = stats.Mass;
+                        lineRenderer.enabled = true;
+                    }
+                    else
+                    {
+                        lineRenderer.enabled = false;
                     }
                 }
                 else
@@ -68,9 +74,14 @@ public class Sizer : MonoBehaviour
                     scrollUVs.uvAnimationRate.x = +10;
                     lineRenderer.SetPosition(0, muzzlePosition.position);
                     lineRenderer.SetPosition(1, lineTarget);
-                    if (target.shrink())
+                    if (target.shrink() && stats.ModifyMass(1))
                     {
-                        charge+= Time.deltaTime;
+                        charge = stats.Mass;
+                        lineRenderer.enabled = true;
+                    }
+                    else
+                    {
+                        lineRenderer.enabled = false;
                     }
                 }
                 else

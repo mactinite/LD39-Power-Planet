@@ -24,7 +24,7 @@ public class PlatformGel : Sizeable
 
     public override bool grow()
     {
-        if (amount <= capacity)
+        if (amount < capacity)
         {
             amount++;
             float delta = Mathf.InverseLerp(0, capacity, amount);
@@ -36,7 +36,7 @@ public class PlatformGel : Sizeable
 
     public override bool shrink()
     {
-        if (amount >= 0)
+        if (amount > 0)
         {
             amount--;
             float delta = Mathf.InverseLerp(0, capacity, amount);
