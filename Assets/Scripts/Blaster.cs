@@ -21,7 +21,7 @@ public class Blaster : MonoBehaviour {
     Transform projectile;
     bool chargingShot = false;
     bool reloading = false;
-    int shotCharge = 0;
+    public int shotCharge = 0;
     int shotCapacity = 100;
 
     public PlayerStats stats;
@@ -34,8 +34,8 @@ public class Blaster : MonoBehaviour {
 
     public AudioSource bulletAudio;
     public AudioSource muzzleAudio;
-    float pitchMin = .6f;
-    float pitchMax = 1.6f;
+    float pitchMin = .8f;
+    float pitchMax = 1f;
 
 
     // Use this for initialization
@@ -50,9 +50,9 @@ public class Blaster : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        if(chargingShot && shotCharge <= shotCapacity)
+        if(chargingShot && shotCharge < shotCapacity)
         {
-            shotCharge++;
+            shotCharge += 5;
         }
 
         reloading = false;
@@ -156,16 +156,8 @@ public class Blaster : MonoBehaviour {
                 projectile.GetComponent<Rigidbody>().AddForce(Camera.main.transform.forward * projectileSpeed);
             }
 
-            bulletAudio.enabled = true;
-            bulletAudio.loop = false;
-            if (shotCharge != 0)
-            {
-                bulletAudio.pitch = pitchMin + ((pitchMax - pitchMin) / shotCharge);
-            }
-            else
-            {
-                bulletAudio.pitch = pitchMin;
-            }
+            // Play audio
+            bulletAudio.pitch = pitchMax - ((pitchMax - pitchMin) * (shotCharge / 100));
             bulletAudio.Play();
 
             shotCharge = 0;
