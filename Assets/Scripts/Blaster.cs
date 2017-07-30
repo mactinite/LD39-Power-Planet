@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using DigitalRuby.LightningBolt;
 
 public class Blaster : MonoBehaviour {
@@ -26,6 +27,8 @@ public class Blaster : MonoBehaviour {
     private LightningBoltScript lightning;
     private LineRenderer lineRenderer;
 
+    public Image reticle; 
+
     // Use this for initialization
     void Start () {
         startPos = transform.localPosition;
@@ -37,6 +40,29 @@ public class Blaster : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+
+        Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit, 15))
+        {
+            if (hit.transform.gameObject.CompareTag("EnergyWell") || hit.transform.gameObject.CompareTag("Friendly"))
+            {
+                reticle.color = Color.green;
+            }
+            else if (hit.transform.gameObject.CompareTag("Enemy"))
+            {
+                reticle.color = Color.red;
+            }
+            else
+            {
+                reticle.color = Color.white;
+            }
+        }
+        else
+        {
+            reticle.color = Color.white;
+        }
         
         if (Input.GetButton("Fire1"))
         {
@@ -55,10 +81,6 @@ public class Blaster : MonoBehaviour {
                 projectile.GetComponent<Rigidbody>().isKinematic = true;
                 chargingShot = true;
             }
-            else
-            {
-
-            }
             
         }
 
@@ -70,8 +92,6 @@ public class Blaster : MonoBehaviour {
                 muzzleSpin.SpinMe(Vector3.forward * -muzzleRotation);
             }
 
-            Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
-            RaycastHit hit;
             if (Physics.Raycast(ray, out hit, 50))
             {
                 //suck up some energy
@@ -106,9 +126,6 @@ public class Blaster : MonoBehaviour {
             projectile.GetComponent<Rigidbody>().isKinematic = false;
             chargingShot = false;
             // Spawn projectile and apply forces
-
-            Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
-            RaycastHit hit;
             if (Physics.Raycast(ray, out hit, 1000))
             {
                 projectile.GetComponent<Rigidbody>().AddForce((hit.point - muzzlePosition.position).normalized * projectileSpeed);

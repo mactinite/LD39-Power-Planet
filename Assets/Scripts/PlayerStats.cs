@@ -5,14 +5,23 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerStats : MonoBehaviour {
-
+    [Range(0,100)]
     public float Health = 100;
+    [Range(0, 100)]
     public float Energy = 100;
+    [Range(0, 100)]
     public float Mass = 100;
 
     public Image HealthBar;
     public Image EnergyBar;
     public Image MassBar;
+
+    private void Start()
+    {
+        HealthBar.fillAmount = Health / 100;
+        EnergyBar.fillAmount = Energy / 100;
+        MassBar.fillAmount = Mass / 100;
+    }
 
     public bool ModifyHealth(float amount)
     {

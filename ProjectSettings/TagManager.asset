@@ -8,6 +8,8 @@ TagManager:
   - Hookshot
   - Sizeable
   - EnergyWell
+  - Enemy
+  - Friendly
   layers:
   - Default
   - TransparentFX

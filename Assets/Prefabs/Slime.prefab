@@ -38,9 +38,10 @@ GameObject:
   - component: {fileID: 4543287321322882}
   - component: {fileID: 33718696021488128}
   - component: {fileID: 23684571865161952}
+  - component: {fileID: 135107598199531300}
   m_Layer: 0
   m_Name: Slime
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -52,7 +53,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1538798189173716}
   m_LocalRotation: {x: -0.6532817, y: -0.27059758, z: -0.27059758, w: 0.6532817}
-  m_LocalPosition: {x: -10.746782, y: 3.861, z: 3.0824008}
+  m_LocalPosition: {x: -22.75, y: 3.861, z: 0.08}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 4697006955578156}
@@ -150,3 +151,15 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1538798189173716}
   m_Mesh: {fileID: 4300002, guid: 200af46ac719c71419a2b6b8f78f33c0, type: 3}
+--- !u!135 &135107598199531300
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1538798189173716}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.850327
+  m_Center: {x: 0, y: 0, z: 0}
