@@ -27,8 +27,6 @@ public class Blaster : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        startPos = transform.localPosition;
-        kickOffset = Vector3.zero;
         
         if (Input.GetButton("Fire1"))
         {
@@ -68,11 +66,11 @@ public class Blaster : MonoBehaviour {
             }
 
 
-            transform.localPosition = Vector3.Lerp(transform.localPosition, startPos + kickOffset, Time.deltaTime * kickSpeed);
-        } 
+            
+        }
 
-
-
+        kickOffset = Vector3.Lerp(kickOffset, Vector3.zero, Time.deltaTime * kickSpeed);
+        transform.localPosition = Vector3.Lerp(transform.localPosition, startPos + kickOffset, Time.deltaTime * kickSpeed);
 
     }
 

@@ -4,10 +4,20 @@ using UnityEngine;
 
 public class PlatformGel : Sizeable
 {
-    public int amount = 25;
-    public int capacity = 50;
+    public float amount = 25;
+    public float capacity = 50;
+    public Vector3 growAxis = Vector3.one;
+    private Vector3 startScale;
 
-    public override int getAmount()
+    public void Start()
+    {
+        startScale = transform.localScale;
+        float delta = Mathf.InverseLerp(0, capacity, amount);
+        transform.localScale = startScale + (growAxis * delta);
+    }
+
+
+    public override float getAmount()
     {
         return amount;
     }
@@ -17,7 +27,8 @@ public class PlatformGel : Sizeable
         if (amount <= capacity)
         {
             amount++;
-            transform.localScale += new Vector3(.1F, .1F, .1F);
+            float delta = Mathf.InverseLerp(0, capacity, amount);
+            transform.localScale = startScale + (growAxis * delta);
             return true;
         }
         return false;
@@ -28,7 +39,8 @@ public class PlatformGel : Sizeable
         if (amount >= 0)
         {
             amount--;
-            transform.localScale -= new Vector3(.1F, .1F, .1F);
+            float delta = Mathf.InverseLerp(0, capacity, amount);
+            transform.localScale = startScale + (growAxis * delta);
             return true;
         }
         return false;

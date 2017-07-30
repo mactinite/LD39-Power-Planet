@@ -14,59 +14,62 @@ public class WeaponInventory : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(Input.GetAxis("Mouse ScrollWheel") > Mathf.Epsilon && !switching)
+		if(Input.GetAxis("Mouse ScrollWheel") > Mathf.Epsilon)
+        {
+            switchWeapons(currentlySelected + 1);
+        }
+
+        if (Input.GetAxis("Mouse ScrollWheel") < -Mathf.Epsilon)
+        {
+            switchWeapons(currentlySelected - 1);
+        }
+
+        if (Input.GetKeyUp(KeyCode.Alpha1))
+        {
+            switchWeapons(0);
+        }
+
+        if (Input.GetKeyUp(KeyCode.Alpha2) )
+        {
+            switchWeapons(1);
+        }
+
+        if (Input.GetKeyUp(KeyCode.Alpha3))
+        {
+            switchWeapons(2);
+        }
+
+        
+
+    }
+
+    public void switchWeapons(int weapon)
+    {
+        if (weapon != currentlySelected)
         {
             StartCoroutine(PutDown(weapons[currentlySelected]));
-            currentlySelected++;
-            if(currentlySelected >= weapons.Length)
+            currentlySelected = weapon;
+            if (currentlySelected >= weapons.Length)
             {
                 currentlySelected = 0;
             }
-        }
-
-        if (Input.GetAxis("Mouse ScrollWheel") < -Mathf.Epsilon && !switching)
-        {
-            StartCoroutine(PutDown(weapons[currentlySelected]));
-            currentlySelected--;
-            if (currentlySelected < 0)
+            else if (currentlySelected < 0)
             {
-                currentlySelected = weapons.Length -1 ;
+                currentlySelected = weapons.Length - 1;
             }
-        }
-
-        if (!switching && !swapped)
-        {
-            StartCoroutine(PullOut(weapons[currentlySelected]));
+            weapons[currentlySelected].gameObject.SetActive(true);
+            weapons[currentlySelected].GetComponent<WeaponSway>().startPos.y = 0;
+            weapons[currentlySelected].localPosition = Vector3.down * 3;
         }
     }
 
     IEnumerator PutDown(Transform toMove)
     {
-        switching = true;
-        swapped = false;
-        Vector3 fromPosition = toMove.localPosition;
-        for (var t = 0f; t < 1; t += Time.deltaTime / 0.1f)
-        {
-            toMove.localPosition = Vector3.Lerp(fromPosition, fromPosition - toMove.up, t);
+        toMove.GetComponent<WeaponSway>().startPos.y = -3;
+        if (Vector3.Distance(toMove.localPosition, toMove.GetComponent<WeaponSway>().startPos) > 0.25f)
             yield return null;
-        }
-        switching = false;
         toMove.gameObject.SetActive(false);
-    }
-
-
-    IEnumerator PullOut(Transform toMove)
-    {
-        toMove.gameObject.SetActive(true);
-        Vector3 toPosition = Vector3.zero;
-        Vector3 fromPosition = toMove.localPosition - toMove.up;
-        for (var t = 0f; t < 1; t += Time.deltaTime / 0.1f)
-        {
-            toMove.localPosition = Vector3.Lerp(fromPosition, toPosition, t);
-            yield return null;
-        }
-        toMove.localPosition = toPosition;
-        swapped = true;
         
     }
+
 }

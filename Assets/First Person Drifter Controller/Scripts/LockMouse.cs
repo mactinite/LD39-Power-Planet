@@ -3,11 +3,12 @@
 using UnityEngine;
 using System.Collections;
 
-public class LockMouse : MonoBehaviour
-{	
-	void Start()
+public class LockMouse : MonoBehaviour    
+{
+    bool cursorLocked = true;
+    void Start()
 	{
-		LockCursor(true);
+		LockCursor(cursorLocked);
 	}
 
     void Update()
@@ -21,12 +22,19 @@ public class LockMouse : MonoBehaviour
     	// unlock when escape is hit
         if  ( Input.GetKeyDown(KeyCode.Escape) )
         {
-        	LockCursor(!Screen.lockCursor);
+        	LockCursor(!cursorLocked);
         }
     }
     
-    public void LockCursor(bool lockCursor)
+    public void LockCursor(bool isLocked)
     {
-    	Screen.lockCursor = lockCursor;
+        if (isLocked)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.None;
+        }
     }
 }

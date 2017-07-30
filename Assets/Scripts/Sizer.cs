@@ -4,18 +4,29 @@ using UnityEngine;
 
 public class Sizer : MonoBehaviour
 {
-    public int capacity = 100;
-    public int charge = 50;
+    public float capacity = 100;
+    public float charge = 50;
     public LineRenderer lineRenderer;
+    private ScrollingUVs scrollUVs;
+    public Transform muzzlePosition;
     Vector3 lineTarget;
     public Sizeable target;
+
+
+    private void Start()
+    {
+        scrollUVs = GetComponent<ScrollingUVs>();
+    }
 
     // Update is called once per frame
     void Update()
     {
-
+        if(Input.GetButtonUp("Fire1") || Input.GetButtonUp("Fire2"))
+        {
+            lineRenderer.enabled = false;
+        }
         // Growing
-        if (Input.GetButtonUp("Fire1") && charge > 0)
+        if (Input.GetButton("Fire1") && charge > 0)
         {
             Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
             RaycastHit hit;
@@ -26,17 +37,24 @@ public class Sizer : MonoBehaviour
                     target = hit.transform.gameObject.GetComponent<Sizeable>();
                     lineTarget = hit.point;
                     lineRenderer.enabled = true;
+                    scrollUVs.uvAnimationRate.x = -10;
+                    lineRenderer.SetPosition(0, muzzlePosition.position);
                     lineRenderer.SetPosition(1, lineTarget);
                     if (target.grow())
                     {
-                        charge--;
+                        charge-= Time.deltaTime;
                     }
+                }
+                else
+                {
+                    lineRenderer.enabled = false;
                 }
             }
         }
+        
 
         // Shrinking
-        else if (Input.GetButtonUp("Fire2") && charge < capacity)
+        else if (Input.GetButton("Fire2") && charge < capacity)
         {
             Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
             RaycastHit hit;
@@ -47,13 +65,20 @@ public class Sizer : MonoBehaviour
                     target = hit.transform.gameObject.GetComponent<Sizeable>();
                     lineTarget = hit.point;
                     lineRenderer.enabled = true;
+                    scrollUVs.uvAnimationRate.x = +10;
+                    lineRenderer.SetPosition(0, muzzlePosition.position);
                     lineRenderer.SetPosition(1, lineTarget);
                     if (target.shrink())
                     {
-                        charge++;
+                        charge+= Time.deltaTime;
                     }
                 }
+                else
+                {
+                    lineRenderer.enabled = false;
+                }
             }
+
         }
 
 

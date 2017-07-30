@@ -8,7 +8,7 @@ public class WeaponSway : MonoBehaviour {
     public float swaySpeed = 5;
     private Vector2 mouseDelta;
     private Vector3 weaponDelta;
-    private Vector3 startPos;
+    public Vector3 startPos;
     private Vector3 newPos;
     // Use this for initialization
     void Start () {
