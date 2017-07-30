@@ -31,10 +31,12 @@ public class LockMouse : MonoBehaviour
         if (isLocked)
         {
             Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
         }
         else
         {
             Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
         }
     }
 }

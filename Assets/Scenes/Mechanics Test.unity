@@ -766,7 +766,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   amount: 50
   capacity: 50
-  growAxis: {x: 0, y: 10, z: 0}
+  growAxis: {x: 0, y: 15, z: 0}
 --- !u!1 &597067860
 GameObject:
   m_ObjectHideFlags: 0
@@ -1480,6 +1480,7 @@ GameObject:
   - component: {fileID: 1030957169}
   - component: {fileID: 1030957168}
   - component: {fileID: 1030957174}
+  - component: {fileID: 1030957172}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -1573,6 +1574,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1030957167}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1030957172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1030957167}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e32f4edd1a1fbb44aba6b0ec06113a95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Energy: 100
 --- !u!4 &1030957173
 Transform:
   m_ObjectHideFlags: 0
