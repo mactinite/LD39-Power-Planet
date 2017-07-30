@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 2951e92dc49d7644895fdee44de2da17
-timeCreated: 1501372805
+guid: a73236b0e5ae4664889ad1672ded494f
+timeCreated: 1501445132
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -9,7 +9,7 @@ ModelImporter:
     400000: //RootNode
     2300000: //RootNode
     3300000: //RootNode
-    4300000: Cylinder
+    4300000: Cube
     6400000: //RootNode
     7400000: Default Take
     9500000: //RootNode
@@ -39,7 +39,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 1
+    globalScale: 3
     meshCompression: 0
     addColliders: 1
     importBlendShapes: 1
@@ -55,8 +55,8 @@ ModelImporter:
     secondaryUVPackMargin: 4
     useFileScale: 1
   tangentSpace:
-    normalSmoothAngle: 0
-    normalImportMode: 1
+    normalSmoothAngle: 60
+    normalImportMode: 0
     tangentImportMode: 3
   importAnimation: 1
   copyAvatar: 0

@@ -70,7 +70,6 @@ public class WeaponInventory : MonoBehaviour {
         else
         {
             //Loop to next unlocked weapon
-            
         }
     }
 
@@ -87,7 +86,10 @@ public class WeaponInventory : MonoBehaviour {
         }
 
         unlocked[weapon] = true;
-        switchWeapons(weapon);
+        currentlySelected = weapon;
+        weapons[currentlySelected].gameObject.SetActive(true);
+        weapons[currentlySelected].GetComponent<WeaponSway>().startPos.y = 0;
+        weapons[currentlySelected].localPosition = Vector3.down * 3;
         return true;
 
     }

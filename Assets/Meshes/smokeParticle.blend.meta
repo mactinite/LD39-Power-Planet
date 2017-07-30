@@ -1,16 +1,39 @@
 fileFormatVersion: 2
-guid: 2951e92dc49d7644895fdee44de2da17
-timeCreated: 1501372805
+guid: 8a20599a4cc27744bb9b3a4c49bcf29d
+timeCreated: 1501445952
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: //RootNode
-    400000: //RootNode
-    2300000: //RootNode
-    3300000: //RootNode
-    4300000: Cylinder
-    6400000: //RootNode
+    100000: Icosphere
+    100002: Icosphere_001
+    100004: Icosphere_002
+    100006: Icosphere_003
+    100008: Icosphere_004
+    100010: //RootNode
+    400000: Icosphere
+    400002: Icosphere_001
+    400004: Icosphere_002
+    400006: Icosphere_003
+    400008: Icosphere_004
+    400010: //RootNode
+    2300000: Icosphere
+    2300002: Icosphere_001
+    2300004: Icosphere_002
+    2300006: Icosphere_003
+    2300008: Icosphere_004
+    2300010: //RootNode
+    3300000: Icosphere
+    3300002: Icosphere_001
+    3300004: Icosphere_002
+    3300006: Icosphere_003
+    3300008: Icosphere_004
+    3300010: //RootNode
+    4300000: Icosphere_004
+    4300002: Icosphere_003
+    4300004: Icosphere_002
+    4300006: Icosphere_001
+    4300008: Icosphere
     7400000: Default Take
     9500000: //RootNode
   materials:
@@ -41,7 +64,7 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
-    addColliders: 1
+    addColliders: 0
     importBlendShapes: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
@@ -55,8 +78,8 @@ ModelImporter:
     secondaryUVPackMargin: 4
     useFileScale: 1
   tangentSpace:
-    normalSmoothAngle: 0
-    normalImportMode: 1
+    normalSmoothAngle: 60
+    normalImportMode: 0
     tangentImportMode: 3
   importAnimation: 1
   copyAvatar: 0
@@ -77,7 +100,7 @@ ModelImporter:
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 0
+  animationType: 2
   humanoidOversampling: 1
   additionalBone: 0
   userData: 

@@ -110,7 +110,7 @@ public class Blaster : MonoBehaviour {
             if (Physics.Raycast(ray, out hit, 50))
             {
                 //suck up some energy
-                if (hit.transform.gameObject.CompareTag("EnergyWell") && stats.ModifyEnergy(Time.deltaTime * 10))
+                if (hit.transform.gameObject.CompareTag("EnergyWell") && stats.ModifyEnergy(Time.deltaTime * 25))
                 {
                     target = hit.transform.position;
                     reloading = true;
