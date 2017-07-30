@@ -20,6 +20,9 @@ public class Blaster : MonoBehaviour {
     private Spin muzzleSpin;
     Transform projectile;
     bool chargingShot = false;
+    bool reloading = false;
+    int shotCharge = 0;
+    int shotCapacity = 100;
 
     public PlayerStats stats;
 
@@ -27,7 +30,13 @@ public class Blaster : MonoBehaviour {
     private LightningBoltScript lightning;
     private LineRenderer lineRenderer;
 
-    public Image reticle; 
+    public Image reticle;
+
+    public AudioSource bulletAudio;
+    public AudioSource muzzleAudio;
+    float pitchMin = .6f;
+    float pitchMax = 1.6f;
+
 
     // Use this for initialization
     void Start () {
@@ -41,6 +50,12 @@ public class Blaster : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+        if(chargingShot && shotCharge <= shotCapacity)
+        {
+            shotCharge++;
+        }
+
+        reloading = false;
 
         Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
         RaycastHit hit;
@@ -98,10 +113,16 @@ public class Blaster : MonoBehaviour {
                 if (hit.transform.gameObject.CompareTag("EnergyWell") && stats.ModifyEnergy(Time.deltaTime * 10))
                 {
                     target = hit.transform.position;
+                    reloading = true;
                     lightning.enabled = true;
                     lineRenderer.enabled = true;
                     lightning.StartPosition = muzzlePosition.position;
                     lightning.EndPosition = target;
+                    if (!muzzleAudio.isPlaying)
+                    {
+                        muzzleAudio.volume = 1;
+                        muzzleAudio.Play();
+                    }
                 }
                 else
                 {
@@ -135,8 +156,29 @@ public class Blaster : MonoBehaviour {
                 projectile.GetComponent<Rigidbody>().AddForce(Camera.main.transform.forward * projectileSpeed);
             }
 
+            bulletAudio.enabled = true;
+            bulletAudio.loop = false;
+            if (shotCharge != 0)
+            {
+                bulletAudio.pitch = pitchMin + ((pitchMax - pitchMin) / shotCharge);
+            }
+            else
+            {
+                bulletAudio.pitch = pitchMin;
+            }
+            bulletAudio.Play();
 
+            shotCharge = 0;
             
+        }
+
+        if (!reloading)
+        {
+            muzzleAudio.volume -= .1f;
+            if(muzzleAudio.volume == 0)
+            {
+                muzzleAudio.Stop();
+            }
         }
 
         kickOffset = Vector3.Lerp(kickOffset, Vector3.zero, Time.deltaTime * kickSpeed);
