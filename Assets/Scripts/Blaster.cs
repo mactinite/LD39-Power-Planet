@@ -107,10 +107,10 @@ public class Blaster : MonoBehaviour {
                 muzzleSpin.SpinMe(Vector3.forward * -muzzleRotation);
             }
 
-            if (Physics.Raycast(ray, out hit, 50))
+            if (Physics.Raycast(ray, out hit, 15))
             {
                 //suck up some energy
-                if (hit.transform.gameObject.CompareTag("EnergyWell") && stats.ModifyEnergy(Time.deltaTime * 25))
+                if (hit.transform.gameObject.CompareTag("EnergyWell") && stats.ModifyEnergy(Time.deltaTime * 50))
                 {
                     target = hit.transform.position;
                     reloading = true;

@@ -26,7 +26,7 @@ GameObject:
   - component: {fileID: 114569458432385102}
   m_Layer: 9
   m_Name: BlasterShot
-  m_TagString: Untagged
+  m_TagString: Player Projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

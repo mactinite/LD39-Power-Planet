@@ -1,21 +1,18 @@
-﻿// by @torahhorse
-
-// Instructions:
-// Place on player. OnBelowLevel will get called if the player ever falls below
-
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 
-public class CheckIfBelowLevel : MonoBehaviour
+public class RespawnManager : MonoBehaviour
 {
-	public float resetBelowThisY = -100f;
+    private Checkpoint activeCheckpoint;
+    public float resetBelowThisY = -100f;
 	public bool fadeInOnReset = true;
 	
-	private Vector3 startingPosition;
-	
+    private Vector3 startingPosition;
+    private PlayerStats stats;
 	void Awake()
 	{
 		startingPosition = transform.position;
+        stats = GetComponent<PlayerStats>();
 	}
 	
 	void Update ()
@@ -25,15 +22,24 @@ public class CheckIfBelowLevel : MonoBehaviour
 			OnBelowLevel();
 		}
 	}
+
+    public void SetActiveCheckpoint(Checkpoint checkpoint)
+    {
+        if (activeCheckpoint)
+        {
+            activeCheckpoint.active = false;
+        }
+        activeCheckpoint = checkpoint;
+        startingPosition = checkpoint.transform.parent.position + transform.up * 2;
+    }
 	
 	private void OnBelowLevel()
-	{
-		Debug.Log("Player fell below level");
-	
+	{	
 		// reset the player
 		transform.position = startingPosition;
-		
-		if( fadeInOnReset )
+        stats.ModifyHealth(-10);
+
+        if ( fadeInOnReset )
 		{
 			// see if we already have a "camera fade on start"
 			CameraFadeOnStart fade = GameObject.Find("Main Camera").GetComponent<CameraFadeOnStart>();

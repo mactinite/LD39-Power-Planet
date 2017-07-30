@@ -84,7 +84,10 @@ public class WeaponInventory : MonoBehaviour {
         {
             return false;
         }
-
+        if (unlocked[currentlySelected])
+        {
+            StartCoroutine(PutDown(weapons[currentlySelected]));
+        }
         unlocked[weapon] = true;
         currentlySelected = weapon;
         weapons[currentlySelected].gameObject.SetActive(true);

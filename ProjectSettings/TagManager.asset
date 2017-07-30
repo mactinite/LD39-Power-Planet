@@ -10,6 +10,8 @@ TagManager:
   - EnergyWell
   - Enemy
   - Friendly
+  - Energy Well
+  - Player Projectile
   layers:
   - Default
   - TransparentFX
