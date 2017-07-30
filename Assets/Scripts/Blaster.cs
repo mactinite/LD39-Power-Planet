@@ -39,7 +39,7 @@ public class Blaster : MonoBehaviour {
 
 
     // Use this for initialization
-    void Start () {
+    void Awake () {
         startPos = transform.localPosition;
         kickOffset = Vector3.zero;
         muzzleSpin = muzzlePosition.gameObject.GetComponent<Spin>();
@@ -176,6 +176,12 @@ public class Blaster : MonoBehaviour {
         kickOffset = Vector3.Lerp(kickOffset, Vector3.zero, Time.deltaTime * kickSpeed);
         transform.localPosition = Vector3.Lerp(transform.localPosition, startPos + kickOffset, Time.deltaTime * kickSpeed);
 
+    }
+
+    private void OnEnable()
+    {
+        lineRenderer.enabled = false;
+        lightning.enabled = false;
     }
 
 }

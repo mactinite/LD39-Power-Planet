@@ -6,6 +6,7 @@ public class WeaponInventory : MonoBehaviour {
 
     public int currentlySelected = 0;
     public Transform[] weapons;
+    public bool[] unlocked;
     public bool switching = false;
     public bool swapped = true;
 	// Use this for initialization
@@ -45,22 +46,50 @@ public class WeaponInventory : MonoBehaviour {
 
     public void switchWeapons(int weapon)
     {
-        if (weapon != currentlySelected)
+
+        if (weapon >= weapons.Length)
         {
-            StartCoroutine(PutDown(weapons[currentlySelected]));
-            currentlySelected = weapon;
-            if (currentlySelected >= weapons.Length)
-            {
-                currentlySelected = 0;
-            }
-            else if (currentlySelected < 0)
-            {
-                currentlySelected = weapons.Length - 1;
-            }
-            weapons[currentlySelected].gameObject.SetActive(true);
-            weapons[currentlySelected].GetComponent<WeaponSway>().startPos.y = 0;
-            weapons[currentlySelected].localPosition = Vector3.down * 3;
+            weapon = 0;
         }
+        else if (weapon < 0)
+        {
+            weapon = weapons.Length - 1;
+        }
+
+        if (unlocked[weapon])
+        {
+            if (weapon != currentlySelected)
+            {
+                StartCoroutine(PutDown(weapons[currentlySelected]));
+                currentlySelected = weapon;
+                weapons[currentlySelected].gameObject.SetActive(true);
+                weapons[currentlySelected].GetComponent<WeaponSway>().startPos.y = 0;
+                weapons[currentlySelected].localPosition = Vector3.down * 3;
+            }
+        }
+        else
+        {
+            //Loop to next unlocked weapon
+            
+        }
+    }
+
+
+    public bool UnlockWeapon(int weapon)
+    {
+        if (weapon >= weapons.Length)
+        {
+            return false;
+        }
+        else if (weapon < 0)
+        {
+            return false;
+        }
+
+        unlocked[weapon] = true;
+        switchWeapons(weapon);
+        return true;
+
     }
 
     IEnumerator PutDown(Transform toMove)

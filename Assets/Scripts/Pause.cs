@@ -10,11 +10,13 @@ namespace Pause
     {
 
         [SerializeField] private GameObject pauseMenu;
+        private FirstPersonDrifter playerController;
         bool paused = false;
 
         void Start()
         {
             pauseMenu.SetActive(false);
+            playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<FirstPersonDrifter>();
         }
 
         void Update()
@@ -31,17 +33,25 @@ namespace Pause
                 }
             }
         }
-        private void pauseGame()
+        public void pauseGame()
         {
             Time.timeScale = 0;
+            playerController.canMove = false;
             paused = true;
             pauseMenu.SetActive(true);
         }
-        private void continueGame()
+        public void continueGame()
         {
             Time.timeScale = 1;
+            playerController.canMove = true;
             paused = false;
             pauseMenu.SetActive(false);
+        }
+
+        public void QuitGame()
+        {
+            Time.timeScale = 1;
+            Application.Quit(); // TODO: Instead navigate to main menu scene
         }
 
         public bool getPaused ()

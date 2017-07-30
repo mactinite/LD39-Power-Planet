@@ -37,7 +37,7 @@ public class Sizer : MonoBehaviour
                 {
                     target = hit.transform.gameObject.GetComponent<Sizeable>();
                     lineTarget = hit.point;
-                    
+
                     scrollUVs.uvAnimationRate.x = -10;
                     lineRenderer.SetPosition(0, muzzlePosition.position);
                     lineRenderer.SetPosition(1, lineTarget);
@@ -57,7 +57,7 @@ public class Sizer : MonoBehaviour
                 }
             }
         }
-        
+
 
         // Shrinking
         else if (Input.GetButton("Fire2") && charge < capacity)
@@ -91,8 +91,9 @@ public class Sizer : MonoBehaviour
             }
 
         }
-
-
-
+    }
+    private void OnEnable()
+    {
+        lineRenderer.enabled = false;
     }
 }

@@ -11,10 +11,12 @@ public class PlayerStats : MonoBehaviour {
     public float Energy = 100;
     [Range(0, 100)]
     public float Mass = 100;
-
+    // Gotta maintain that public image    
     public Image HealthBar;
     public Image EnergyBar;
     public Image MassBar;
+
+
 
     private void Start()
     {

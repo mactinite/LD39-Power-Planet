@@ -110,6 +110,11 @@ public class Grapple : MonoBehaviour {
 
     }
 
+    private void OnEnable()
+    {
+        lineRenderer.enabled = false;
+        lightning.enabled = false;
+    }
 
     private void FixedUpdate()
     {
