@@ -1638,6 +1638,31 @@ Prefab:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114998241840711910, guid: ef9c7914a0da52b468944ae19875b976,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1890663213}
+    - target: {fileID: 114998241840711910, guid: ef9c7914a0da52b468944ae19875b976,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: continueGame
+      objectReference: {fileID: 0}
+    - target: {fileID: 114598908301049246, guid: ef9c7914a0da52b468944ae19875b976,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1890663213}
+    - target: {fileID: 114598908301049246, guid: ef9c7914a0da52b468944ae19875b976,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: QuitGame
+      objectReference: {fileID: 0}
+    - target: {fileID: 114598908301049246, guid: ef9c7914a0da52b468944ae19875b976,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ef9c7914a0da52b468944ae19875b976, type: 2}
   m_IsPrefabParent: 0
@@ -3494,6 +3519,12 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7456a1f9a8033734a881cdaed65f03a0, type: 3}
   m_IsPrefabParent: 0
+--- !u!114 &1890663213 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114562435413455840, guid: 710a3edf3bf2c1745a55692ec2b6491a,
+    type: 2}
+  m_PrefabInternal: {fileID: 185390153}
+  m_Script: {fileID: 11500000, guid: d6676bdc6c6831841af33191f6591d0e, type: 3}
 --- !u!4 &1911910789 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: 7227f06a17b35894d97949634a745fbe, type: 3}
