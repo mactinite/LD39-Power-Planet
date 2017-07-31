@@ -78,7 +78,18 @@ public class Blaster : MonoBehaviour {
         {
             reticle.color = Color.white;
         }
-        
+
+
+        if (Input.GetButtonDown("Fire1"))
+        {
+            if (stats.ModifyEnergy(-1))
+            {
+                projectile = Instantiate(projectilePrefab, muzzlePosition.position, Quaternion.identity);
+                projectile.GetComponent<Rigidbody>().isKinematic = true;
+                chargingShot = true;
+            }
+        }
+
         if (Input.GetButton("Fire1"))
         {
             
@@ -86,15 +97,9 @@ public class Blaster : MonoBehaviour {
             {
                 muzzleSpin.SpinMe(Vector3.forward * muzzleRotation);
             }
-            if (chargingShot)
+            if (chargingShot && projectile)
             {
                 projectile.position = muzzlePosition.position;
-            }
-            else if(stats.ModifyEnergy(-1))
-            {
-                projectile = Instantiate(projectilePrefab, muzzlePosition.position, Quaternion.identity);
-                projectile.GetComponent<Rigidbody>().isKinematic = true;
-                chargingShot = true;
             }
             
         }
@@ -143,24 +148,27 @@ public class Blaster : MonoBehaviour {
         }
         if (Input.GetButtonUp("Fire1") && chargingShot)
         {
-            kickOffset.z = kickAmount;
-            projectile.GetComponent<Rigidbody>().isKinematic = false;
-            chargingShot = false;
-            // Spawn projectile and apply forces
-            if (Physics.Raycast(ray, out hit, 1000))
+            if (projectile)
             {
-                projectile.GetComponent<Rigidbody>().AddForce((hit.point - muzzlePosition.position).normalized * projectileSpeed);
-            }
-            else
-            {
-                projectile.GetComponent<Rigidbody>().AddForce(Camera.main.transform.forward * projectileSpeed);
-            }
+                kickOffset.z = kickAmount;
+                projectile.GetComponent<Rigidbody>().isKinematic = false;
+                chargingShot = false;
+                // Spawn projectile and apply forces
+                if (Physics.Raycast(ray, out hit, 1000))
+                {
+                    projectile.GetComponent<Rigidbody>().AddForce((hit.point - muzzlePosition.position).normalized * projectileSpeed);
+                }
+                else
+                {
+                    projectile.GetComponent<Rigidbody>().AddForce(Camera.main.transform.forward * projectileSpeed);
+                }
 
-            // Play audio
-            bulletAudio.pitch = pitchMax - ((pitchMax - pitchMin) * (shotCharge / 100));
-            bulletAudio.Play();
+                // Play audio
+                bulletAudio.pitch = pitchMax - ((pitchMax - pitchMin) * (shotCharge / 100));
+                bulletAudio.Play();
 
-            shotCharge = 0;
+                shotCharge = 0;
+            }
             
         }
 
