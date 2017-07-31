@@ -2013,7 +2013,12 @@ Prefab:
     - target: {fileID: 114907187217474314, guid: 76d158f7fab6282429cc504fb23d1347,
         type: 2}
       propertyPath: moveTime
-      value: 3
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114907187217474314, guid: 76d158f7fab6282429cc504fb23d1347,
+        type: 2}
+      propertyPath: waitTime
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 76d158f7fab6282429cc504fb23d1347, type: 2}
