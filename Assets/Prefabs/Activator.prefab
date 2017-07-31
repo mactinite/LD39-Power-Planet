@@ -75,7 +75,7 @@ GameObject:
   - component: {fileID: 114634731346301496}
   m_Layer: 0
   m_Name: Activator
-  m_TagString: Untagged
+  m_TagString: Friendly
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -263,7 +263,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   active: 0
   br: {fileID: 114634731346301496}
-  particles: {fileID: 0}
+  particles: {fileID: 4570348324748076}
   sendMessage: 0
   toActivate: {fileID: 0}
 --- !u!135 &135239674159681026

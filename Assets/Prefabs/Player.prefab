@@ -161,6 +161,7 @@ GameObject:
   - component: {fileID: 114461283412779078}
   - component: {fileID: 114418068593137146}
   - component: {fileID: 114562435413455840}
+  - component: {fileID: 136014336960257728}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -305,15 +306,15 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1332111749213824}
-  m_LocalRotation: {x: 0, y: -0.9141832, z: 0, w: 0.4053012}
-  m_LocalPosition: {x: 4.43, y: 21.06, z: 26.45}
+  m_LocalRotation: {x: -0, y: -0.13052596, z: -0, w: 0.99144495}
+  m_LocalPosition: {x: -6.47, y: 21.9, z: -57.39}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4606570905532356}
   - {fileID: 4467325017993766}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: -132.18, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -15.000001, z: 0}
 --- !u!4 &4034426451027998
 Transform:
   m_ObjectHideFlags: 1
@@ -1001,7 +1002,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 5f1749fc315693e409628f030de97ee0, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.25
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -1081,7 +1082,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 7f9856a09ec645b41a4627a2f543e02b, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.536
+  m_Volume: 0.25
   m_Pitch: 0.91
   Loop: 0
   Mute: 0
@@ -1325,7 +1326,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Health: 100
-  Energy: 100
+  Energy: 0
   Mass: 0
   HealthBar: {fileID: 0}
   EnergyBar: {fileID: 0}
@@ -1772,6 +1773,19 @@ Behaviour:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1579161727333806}
   m_Enabled: 1
+--- !u!136 &136014336960257728
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1332111749213824}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!143 &143875455911407864
 CharacterController:
   m_ObjectHideFlags: 1

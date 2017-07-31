@@ -8,6 +8,8 @@ using System.Collections;
 [RequireComponent (typeof (CharacterController))]
 public class FirstPersonDrifter: MonoBehaviour
 {
+    private Transform contactTransform;
+
     public float walkSpeed = 6.0f;
     public float runSpeed = 10.0f;
  
@@ -49,7 +51,7 @@ public class FirstPersonDrifter: MonoBehaviour
     private RaycastHit hit;
     private float fallStartLevel;
     private bool falling;
-    private float slideLimit;
+    public float slideLimit;
     private float rayDistance;
     private Vector3 contactPoint;
     public bool playerControl = false;
@@ -68,15 +70,11 @@ public class FirstPersonDrifter: MonoBehaviour
  
     void FixedUpdate() {
 
-
-
-
         float inputX = Input.GetAxis("Horizontal");
         float inputY = Input.GetAxis("Vertical");
 
         // If both horizontal and vertical are used simultaneously, limit speed (if allowed), so the total doesn't exceed normal move speed
         float inputModifyFactor = (inputX != 0.0f && inputY != 0.0f && limitDiagonalSpeed) ? .7071f : 1.0f;
-
 
         if (grounded)
         {
@@ -179,6 +177,7 @@ public class FirstPersonDrifter: MonoBehaviour
     // Store point that we're in contact with for use in FixedUpdate if needed
     void OnControllerColliderHit (ControllerColliderHit hit) {
         contactPoint = hit.point;
+        contactTransform = hit.transform;
     }
  
     // If falling damage occured, this is the place to do something about it. You can make the player
@@ -187,4 +186,7 @@ public class FirstPersonDrifter: MonoBehaviour
     {
         //print ("Ouch! Fell " + fallDistance + " units!");   
     }
+
+
+
 }

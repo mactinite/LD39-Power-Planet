@@ -12,6 +12,7 @@ TagManager:
   - Friendly
   - Energy Well
   - Player Projectile
+  - Moving Platform
   layers:
   - Default
   - TransparentFX
