@@ -16,7 +16,7 @@ public class PlayerStats : MonoBehaviour {
     public Image EnergyBar;
     public Image MassBar;
 
-
+    public AudioClip hitSound;
 
     private void Start()
     {
@@ -29,6 +29,10 @@ public class PlayerStats : MonoBehaviour {
     {
         if(Health + amount <= 100 && Health + amount >= 0)
         {
+            if(amount < 0)
+            {
+                GetComponent<AudioSource>().PlayOneShot(hitSound);
+            }
             Health += amount;
             HealthBar.fillAmount = Health / 100;
             return true;

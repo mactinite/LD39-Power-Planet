@@ -64,6 +64,7 @@ public class Grapple : MonoBehaviour {
                 if (hit.transform.gameObject.CompareTag("Hookshot"))
                 {
                     kickOffset.z = kickAmount;
+                    GetComponent<AudioSource>().Play();
                     currentTarget = hit.transform.GetComponent<HookShotTarget>();
                     currentTarget.Active(true);
                     isFlying = true;
@@ -84,6 +85,7 @@ public class Grapple : MonoBehaviour {
                 {
                     kickOffset.z = kickAmount;
                     CancelHook();
+                    GetComponent<AudioSource>().Play();
                     currentTarget = hit.transform.GetComponent<HookShotTarget>();
                     currentTarget.Active(true);
                     isFlying = true;
@@ -100,11 +102,14 @@ public class Grapple : MonoBehaviour {
 
         if (Input.GetButtonDown("Jump") && isFlying)
         {
+            GetComponent<AudioSource>().Stop();
+            GetComponent<AudioSource>().time = 0;
             CancelHook();
         }
 
         if (Input.GetButtonUp("Fire1"))
         {
+            
 
         }
 

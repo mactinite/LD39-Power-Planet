@@ -31,7 +31,11 @@ public class PlatformGel : Sizeable
             transform.localScale = startScale + (growAxis * delta);
             return true;
         }
-        return false;
+        else
+        {
+            return false;
+        }
+        
     }
 
     public override bool shrink()
@@ -43,6 +47,10 @@ public class PlatformGel : Sizeable
             transform.localScale = startScale + (growAxis * delta);
             return true;
         }
-        return false;
+        else
+        {
+            return false;
+        }
+        
     }
 }

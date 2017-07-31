@@ -13,6 +13,7 @@ TagManager:
   - Energy Well
   - Player Projectile
   - Moving Platform
+  - EndGame
   layers:
   - Default
   - TransparentFX

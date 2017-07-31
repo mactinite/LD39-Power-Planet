@@ -13,6 +13,8 @@ public class Sizer : MonoBehaviour
     public Sizeable target;
     public PlayerStats stats;
 
+    public AudioClip shrinkSound;
+    public AudioClip growSound;
     private void Start()
     {
         scrollUVs = GetComponent<ScrollingUVs>();
@@ -24,6 +26,7 @@ public class Sizer : MonoBehaviour
     {
         if(Input.GetButtonUp("Fire1") || Input.GetButtonUp("Fire2"))
         {
+            GetComponent<AudioSource>().Stop();
             lineRenderer.enabled = false;
         }
         // Growing
@@ -31,28 +34,33 @@ public class Sizer : MonoBehaviour
         {
             Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
             RaycastHit hit;
-            if (Physics.Raycast(ray, out hit, 1000))
+            if (Physics.Raycast(ray, out hit, 15))
             {
                 if (hit.transform.gameObject.CompareTag("Sizeable"))
                 {
                     target = hit.transform.gameObject.GetComponent<Sizeable>();
                     lineTarget = hit.point;
-
                     scrollUVs.uvAnimationRate.x = -10;
                     lineRenderer.SetPosition(0, muzzlePosition.position);
                     lineRenderer.SetPosition(1, lineTarget);
                     if (target.grow() && stats.ModifyMass(-1))
                     {
+                        if (lineRenderer.enabled == false)
+                        {
+                            GetComponent<AudioSource>().PlayOneShot(growSound);
+                        }
                         charge = stats.Mass;
                         lineRenderer.enabled = true;
                     }
                     else
                     {
+                        GetComponent<AudioSource>().Stop();
                         lineRenderer.enabled = false;
                     }
                 }
                 else
                 {
+                    GetComponent<AudioSource>().Stop();
                     lineRenderer.enabled = false;
                 }
             }
@@ -60,33 +68,39 @@ public class Sizer : MonoBehaviour
 
 
         // Shrinking
-        else if (Input.GetButton("Fire2") && charge < capacity)
+        if (Input.GetButton("Fire2") && charge < capacity)
         {
             Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
             RaycastHit hit;
-            if (Physics.Raycast(ray, out hit, 1000))
+            if (Physics.Raycast(ray, out hit, 15))
             {
                 if (hit.transform.gameObject.CompareTag("Sizeable"))
                 {
                     target = hit.transform.gameObject.GetComponent<Sizeable>();
                     lineTarget = hit.point;
-                    lineRenderer.enabled = true;
                     scrollUVs.uvAnimationRate.x = +10;
                     lineRenderer.SetPosition(0, muzzlePosition.position);
                     lineRenderer.SetPosition(1, lineTarget);
                     if (target.shrink() && stats.ModifyMass(1))
                     {
                         charge = stats.Mass;
+                        if (lineRenderer.enabled == false)
+                        {
+                            GetComponent<AudioSource>().PlayOneShot(shrinkSound);
+                        }
                         lineRenderer.enabled = true;
+
                     }
                     else
                     {
                         lineRenderer.enabled = false;
+                        GetComponent<AudioSource>().Stop();
                     }
                 }
                 else
                 {
                     lineRenderer.enabled = false;
+                    GetComponent<AudioSource>().Stop();
                 }
             }
 
@@ -95,5 +109,6 @@ public class Sizer : MonoBehaviour
     private void OnEnable()
     {
         lineRenderer.enabled = false;
+        GetComponent<AudioSource>().Stop();
     }
 }

@@ -5,45 +5,79 @@ using UnityEngine;
 
 public class MoveTo : MonoBehaviour {
 
-	public Transform goal;
+	private Transform goal;
 
-	public NavMeshAgent enemy;
+	private NavMeshAgent enemy;
 
-	public Rigidbody rb;
+    private Rigidbody rb;
 
-	public Vector3 currentDestination;
+    private Vector3 currentDestination;
 
-	public NavMeshPathStatus pathStatus;
+    public NavMeshPathStatus pathStatus;
 
     public Transform deathFX;
 
+    public bool damagingPlayer = false;
+    public float hitRate = 0.5f;
+
+    private Transform player;
 	// Use this for initialization
 	void Start () {
 		enemy = GetComponent<NavMeshAgent> ();
 		rb = GetComponent<Rigidbody> ();
 		currentDestination = enemy.transform.position;
-		detectPlayer ();
+        player = GameObject.FindGameObjectWithTag("Player").transform;
+
+        detectPlayer ();
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		detectPlayer ();
+        damagePlayer();
 	}
+    private float timer = 0;
+
+    private void damagePlayer()
+    {
+        
+        if(damagingPlayer)
+        {
+            timer += Time.deltaTime;
+            if (timer >= hitRate)
+            {
+                player.GetComponent<PlayerStats>().ModifyHealth(-10);
+                timer = 0;
+            }
+        }
+
+        
+    }
 
 	private void detectPlayer() {
-		goal = GameObject.FindGameObjectWithTag ("Player").transform;
+		goal = player;
 		NavMeshPath path = new NavMeshPath ();
 		Vector3 position = goal.position;
 		enemy.CalculatePath (position, path);
 		pathStatus = path.status;
-		if (path.status == NavMeshPathStatus.PathInvalid) {
+		if (path.status != NavMeshPathStatus.PathComplete) {
 			goal = null;
 			if (enemy.transform.position.x == currentDestination.x && enemy.transform.position.z == currentDestination.z) {
-				currentDestination = randomNavSphere (enemy.transform.position, 5.0f, -1);
+				currentDestination = randomNavSphere (enemy.transform.position, 10.0f, -1);
 				enemy.destination = currentDestination;
 				return;
 			}
 		} else {
+            if(Vector3.Distance(enemy.transform.position, player.position) <= 1.75f)
+            {
+                enemy.isStopped = true;
+                damagingPlayer = true;
+            }
+            else
+            {
+                enemy.isStopped = false;
+                damagingPlayer = false;
+            }
 		}
 		currentDestination = enemy.transform.position;
 		enemy.destination = position;
@@ -57,11 +91,8 @@ public class MoveTo : MonoBehaviour {
 		return navHit.position;
 	}
 
-	void OnCollisionEnter(Collision col) {
-		if (col.gameObject.tag == "Player") {
-			GameObject player = col.gameObject;
-			player.GetComponent<PlayerStats> ().ModifyHealth (-10.0f);
-		}
+
+    void OnCollisionEnter(Collision col) {
 
 		if (col.gameObject.tag == "Player Projectile") {
 			this.GetComponent<EnemyStats> ().ModifyHealth (-10.0f);
