@@ -7,6 +7,7 @@ public class ObjectActivator : MonoBehaviour {
 
     public bool active = false;
     public BatteryRotate br;
+    public Transform particles;
 
     public bool sendMessage = true;
     public Transform toActivate;
@@ -16,10 +17,12 @@ public class ObjectActivator : MonoBehaviour {
         if (active)
         {
             br.enabled = true;
+            particles.gameObject.SetActive(true);
         }
         else
         {
             br.enabled = false;
+            particles.gameObject.SetActive(false);
         }
     }
 
