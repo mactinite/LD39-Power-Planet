@@ -15,12 +15,12 @@ public class MoveTo : MonoBehaviour {
 
 	public NavMeshPathStatus pathStatus;
 
+    public Transform deathFX;
+
 	// Use this for initialization
 	void Start () {
 		enemy = GetComponent<NavMeshAgent> ();
 		rb = GetComponent<Rigidbody> ();
-		rb.isKinematic = true;
-		rb.detectCollisions = false;
 		currentDestination = enemy.transform.position;
 		detectPlayer ();
 	}
@@ -39,15 +39,11 @@ public class MoveTo : MonoBehaviour {
 		if (path.status == NavMeshPathStatus.PathInvalid) {
 			goal = null;
 			if (enemy.transform.position.x == currentDestination.x && enemy.transform.position.z == currentDestination.z) {
-				rb.isKinematic = true;
-				rb.detectCollisions = false;
 				currentDestination = randomNavSphere (enemy.transform.position, 5.0f, -1);
 				enemy.destination = currentDestination;
 				return;
 			}
 		} else {
-			rb.isKinematic = false;
-			rb.detectCollisions = true;
 		}
 		currentDestination = enemy.transform.position;
 		enemy.destination = position;
@@ -70,7 +66,8 @@ public class MoveTo : MonoBehaviour {
 		if (col.gameObject.tag == "Player Projectile") {
 			this.GetComponent<EnemyStats> ().ModifyHealth (-10.0f);
 			if (this.GetComponent<EnemyStats> ().health == 0) {
-				Destroy (this.gameObject);
+                Instantiate(deathFX, transform.position, Quaternion.identity);
+                Destroy (this.gameObject);
 			}
 
 		}

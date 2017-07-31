@@ -40,6 +40,7 @@ GameObject:
   - component: {fileID: 114188688259203988}
   - component: {fileID: 54945248820587488}
   - component: {fileID: 114349917048753572}
+  - component: {fileID: 135635924190402052}
   m_Layer: 0
   m_Name: Slime
   m_TagString: Untagged
@@ -57,7 +58,6 @@ GameObject:
   - component: {fileID: 4182545579050962}
   - component: {fileID: 33410746315411488}
   - component: {fileID: 23875716029397140}
-  - component: {fileID: 135461247511729270}
   m_Layer: 0
   m_Name: Slime
   m_TagString: Enemy
@@ -197,7 +197,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 126
   m_CollisionDetection: 0
 --- !u!114 &114188688259203988
 MonoBehaviour:
@@ -215,6 +215,7 @@ MonoBehaviour:
   rb: {fileID: 0}
   currentDestination: {x: 0, y: 0, z: 0}
   pathStatus: 0
+  deathFX: {fileID: 4040011023913394, guid: 162cb09874097e8418b8551971f01ea5, type: 2}
 --- !u!114 &114349917048753572
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -227,18 +228,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 30
---- !u!135 &135461247511729270
+--- !u!135 &135635924190402052
 SphereCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1708092780139662}
+  m_GameObject: {fileID: 1538798189173716}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.850327
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 0.4
+  m_Center: {x: 0, y: 0.325, z: 0}
 --- !u!195 &195765729426884838
 NavMeshAgent:
   m_ObjectHideFlags: 1
