@@ -5,17 +5,12 @@ using UnityEngine;
 public class WinScreen : MonoBehaviour {
 
 
-    public void OnEnable()
-    {
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
-    }
-
     public void ResumeGame()
     {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        Time.timeScale = 1;
         Camera.main.GetComponent<SimpleSmoothMouseLook>().canMove = true;
         gameObject.SetActive(false);
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 }

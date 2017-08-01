@@ -9,9 +9,14 @@ public class BatteryPickup : MonoBehaviour {
     private void OnTriggerEnter(Collider other)
     {
         //End Game
-        Camera.main.GetComponent<SimpleSmoothMouseLook>().canMove = false;
-        endUI.gameObject.SetActive(true);
-        Destroy(this.gameObject);
+        if (other.CompareTag("Player")) {
+            Camera.main.GetComponent<SimpleSmoothMouseLook>().canMove = false;
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            Time.timeScale = 0;
+            endUI.gameObject.SetActive(true);
+            Destroy(this.gameObject);
+        }
     }
 
 }
