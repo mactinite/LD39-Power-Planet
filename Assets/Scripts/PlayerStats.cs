@@ -25,8 +25,16 @@ public class PlayerStats : MonoBehaviour {
         MassBar.fillAmount = Mass / 100;
     }
 
+
+    private void Update()
+    {
+        if(Health <= 0){
+            GetComponent<RespawnManager>().Respawn();
+        }
+    }
     public bool ModifyHealth(float amount)
     {
+
         if(Health + amount <= 100 && Health + amount >= 0)
         {
             if(amount < 0)
@@ -41,6 +49,12 @@ public class PlayerStats : MonoBehaviour {
         {
             return false;
         }
+    }
+
+    public void SetHealth(float value)
+    {
+        Health = value;
+        HealthBar.fillAmount = Health / 100;
     }
 
     public bool ModifyEnergy(float amount)

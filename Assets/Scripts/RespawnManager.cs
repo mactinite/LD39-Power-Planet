@@ -19,7 +19,7 @@ public class RespawnManager : MonoBehaviour
 	{
 		if( transform.position.y < resetBelowThisY )
 		{
-			OnBelowLevel();
+            Respawn();
 		}
 	}
 
@@ -32,13 +32,12 @@ public class RespawnManager : MonoBehaviour
         activeCheckpoint = checkpoint;
         startingPosition = checkpoint.transform.parent.position + transform.up * 2;
     }
-	
-	private void OnBelowLevel()
+
+	public void Respawn()
 	{	
 		// reset the player
 		transform.position = startingPosition;
-        stats.ModifyHealth(-10);
-
+        stats.SetHealth(100);
         if ( fadeInOnReset )
 		{
 			// see if we already have a "camera fade on start"

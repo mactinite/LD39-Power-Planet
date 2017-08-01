@@ -12,11 +12,14 @@ namespace Pause
         [SerializeField] private GameObject pauseMenu;
         private FirstPersonDrifter playerController;
         bool paused = false;
+        private SimpleSmoothMouseLook mouseLook;
 
         void Start()
         {
             pauseMenu.SetActive(false);
             playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<FirstPersonDrifter>();
+            mouseLook = Camera.main.GetComponent<SimpleSmoothMouseLook>();
+            
         }
 
         void Update()
@@ -36,12 +39,15 @@ namespace Pause
         public void pauseGame()
         {
             Time.timeScale = 0;
+            mouseLook.canMove = false;
             playerController.canMove = false;
             paused = true;
             pauseMenu.SetActive(true);
         }
         public void continueGame()
         {
+            Cursor.lockState = CursorLockMode.Locked;
+            mouseLook.canMove = true;
             Time.timeScale = 1;
             playerController.canMove = true;
             paused = false;
@@ -57,6 +63,11 @@ namespace Pause
         public bool getPaused ()
         {
             return paused;
+        }
+
+        public void SetSensitivity(float amount)
+        {
+            mouseLook.sensitivity = new Vector2(amount, amount);
         }
     }
 }

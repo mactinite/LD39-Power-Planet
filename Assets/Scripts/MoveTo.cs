@@ -61,7 +61,8 @@ public class MoveTo : MonoBehaviour {
 		enemy.CalculatePath (position, path);
 		pathStatus = path.status;
 		if (path.status != NavMeshPathStatus.PathComplete) {
-			goal = null;
+            damagingPlayer = false;
+            goal = null;
 			if (enemy.transform.position.x == currentDestination.x && enemy.transform.position.z == currentDestination.z) {
 				currentDestination = randomNavSphere (enemy.transform.position, 10.0f, -1);
 				enemy.destination = currentDestination;
