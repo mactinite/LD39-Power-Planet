@@ -8,8 +8,8 @@ using System.Collections;
 public class HeadBob : MonoBehaviour
 {	
 	private float bobbingSpeed = 0.25f; 
-	public float bobbingAmount = 0.05f; 
-	public float  midpoint = 0.6f; 
+	public float bobbingAmount = 0.05f;
+    public Vector2 midpoint;
 	
 	private float timer = 0.0f; 
  
@@ -34,20 +34,22 @@ public class HeadBob : MonoBehaviour
 	    } 
 	    if (waveslice != 0f)
 	    { 
-	       float translateChange = waveslice * bobbingAmount; 
-	       float totalAxes = Mathf.Abs(horizontal) + Mathf.Abs(vertical); 
-	       totalAxes = Mathf.Clamp (totalAxes, 0.0f, 1.0f); 
-	       translateChange = totalAxes * translateChange;
+            float translateChange = waveslice * bobbingAmount; 
+            float totalAxes = Mathf.Abs(horizontal) + Mathf.Abs(vertical); 
+            totalAxes = Mathf.Clamp (totalAxes, 0.0f, 1.0f); 
+            translateChange = totalAxes * translateChange;
 	       
-	       Vector3 localPos = transform.localPosition;
-	       localPos.y = midpoint + translateChange * Time.timeScale; 
-	       transform.localPosition = localPos;
+            Vector3 localPos = transform.localPosition;
+            localPos.y = midpoint.y + translateChange * Time.timeScale;
+            localPos.x = midpoint.x + translateChange * Time.timeScale;
+            transform.localPosition = localPos;
 	    } 
 	    else
 	    { 
 	    	Vector3 localPos = transform.localPosition;
-	    	localPos.y = midpoint; 
-	    	transform.localPosition = localPos;
+	    	localPos.y = midpoint.y;
+            localPos.x = midpoint.x;
+            transform.localPosition = localPos;
 	    } 
 	}
 }

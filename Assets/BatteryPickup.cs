@@ -11,6 +11,7 @@ public class BatteryPickup : MonoBehaviour {
         //End Game
         Camera.main.GetComponent<SimpleSmoothMouseLook>().canMove = false;
         endUI.gameObject.SetActive(true);
+        Destroy(this.gameObject);
     }
 
 }

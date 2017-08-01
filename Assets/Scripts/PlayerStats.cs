@@ -35,7 +35,19 @@ public class PlayerStats : MonoBehaviour {
     public bool ModifyHealth(float amount)
     {
 
-        if(Health + amount <= 100 && Health + amount >= 0)
+        if(Health + amount < 0)
+        {
+            Health = 0;
+            return true;
+        }
+
+        if (Health + amount > 100)
+        {
+            Health = 0;
+            return true;
+        }
+
+        if (Health + amount <= 100 && Health + amount >= 0)
         {
             if(amount < 0)
             {
@@ -59,6 +71,19 @@ public class PlayerStats : MonoBehaviour {
 
     public bool ModifyEnergy(float amount)
     {
+
+        if (Energy + amount < 0)
+        {
+            Energy = 0;
+            return true;
+        }
+
+        if (Energy + amount > 100)
+        {
+            Energy = 0;
+            return true;
+        }
+
         if (Energy + amount <= 100 && Energy + amount >= 0)
         {
             Energy += amount;
@@ -73,6 +98,19 @@ public class PlayerStats : MonoBehaviour {
 
     public bool ModifyMass(float amount)
     {
+
+        if (Mass + amount < 0)
+        {
+            Mass = 0;
+            return true;
+        }
+
+        if (Mass + amount > 100)
+        {
+            Mass = 0;
+            return true;
+        }
+
         if (Mass + amount <= 100 && Mass + amount >= 0)
         {
             Mass += amount;

@@ -46,7 +46,7 @@ public class MoveTo : MonoBehaviour {
             timer += Time.deltaTime;
             if (timer >= hitRate)
             {
-                player.GetComponent<PlayerStats>().ModifyHealth(-10);
+                player.GetComponent<PlayerStats>().ModifyHealth(-25.0f);
                 timer = 0;
             }
         }
@@ -69,7 +69,7 @@ public class MoveTo : MonoBehaviour {
 				return;
 			}
 		} else {
-            if(Vector3.Distance(enemy.transform.position, player.position) <= 1.75f)
+            if(Vector3.Distance(enemy.transform.position, player.position) <= 2f)
             {
                 enemy.isStopped = true;
                 damagingPlayer = true;
