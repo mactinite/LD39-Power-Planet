@@ -125,7 +125,7 @@ public class Blaster : MonoBehaviour {
                     lightning.EndPosition = target;
                     if (!muzzleAudio.isPlaying)
                     {
-                        muzzleAudio.volume = 1;
+                        muzzleAudio.volume = .35f;
                         muzzleAudio.Play();
                     }
                 }
